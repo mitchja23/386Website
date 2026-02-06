@@ -1,0 +1,79 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Welcome to My Data Science Portfolio",
+    "section": "",
+    "text": "Welcome to my data science portfolio! This site shows my journey learning data science and analytics. Here you’ll find projects that demonstrate what I’ve learned and discovered.\n\n\nThis portfolio shows my work learning data science. Each project includes:\n\nMy code with documentation\nVisualizations I created\nWhat I learned and discovered\n\nI built this site using Quarto and host it on GitHub Pages.\n\n\n\n\nProgramming: Python, Pandas for data analysis\nVisualization: Creating charts with Matplotlib and Seaborn\nData Collection: Getting data from files, websites, and APIs\nAnalysis: Finding patterns and answering questions with data\n\n\n\n\n\n\n\nLearn how I explore datasets to find interesting patterns and answer questions.\n\n\n\nSee how I gather data from different sources and prepare it for analysis.\n\n\n\nSee how I tackle a data science project beginning to end.\n\n\n\nThanks for visiting! Feel free to explore my projects and see what I’m learning."
+  },
+  {
+    "objectID": "index.html#about-this-portfolio",
+    "href": "index.html#about-this-portfolio",
+    "title": "Welcome to My Data Science Portfolio",
+    "section": "",
+    "text": "This portfolio shows my work learning data science. Each project includes:\n\nMy code with documentation\nVisualizations I created\nWhat I learned and discovered\n\nI built this site using Quarto and host it on GitHub Pages."
+  },
+  {
+    "objectID": "index.html#skills-im-learning",
+    "href": "index.html#skills-im-learning",
+    "title": "Welcome to My Data Science Portfolio",
+    "section": "",
+    "text": "Programming: Python, Pandas for data analysis\nVisualization: Creating charts with Matplotlib and Seaborn\nData Collection: Getting data from files, websites, and APIs\nAnalysis: Finding patterns and answering questions with data"
+  },
+  {
+    "objectID": "index.html#my-projects",
+    "href": "index.html#my-projects",
+    "title": "Welcome to My Data Science Portfolio",
+    "section": "",
+    "text": "Learn how I explore datasets to find interesting patterns and answer questions.\n\n\n\nSee how I gather data from different sources and prepare it for analysis.\n\n\n\nSee how I tackle a data science project beginning to end.\n\n\n\nThanks for visiting! Feel free to explore my projects and see what I’m learning."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About Me",
+    "section": "",
+    "text": "From South Carolina, currentyl based in Utah\nLove being outside hiking, camping, etc"
+  },
+  {
+    "objectID": "about.html#about-me",
+    "href": "about.html#about-me",
+    "title": "About Me",
+    "section": "",
+    "text": "From South Carolina, currentyl based in Utah\nLove being outside hiking, camping, etc"
+  },
+  {
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "About Me",
+    "section": "Education",
+    "text": "Education\n\nData Science - [ Brigham Young University], [2026]\nRelevant Coursework: Statistical Modeling, Data Structures and Algorthims, Computer Systems, Computational Linear Algebra."
+  },
+  {
+    "objectID": "about.html#experience-projects",
+    "href": "about.html#experience-projects",
+    "title": "About Me",
+    "section": "Experience & Projects",
+    "text": "Experience & Projects\n\nBYU RLL: Reaserch assistant at the BYU Reasearch linking lab.\nStochastic Vote Share Simulation: Created Monte Carlo model using binomial process to estimate projected vote percentage based on political party\nAlgorithmic Trading System: Developed mean-reversion alpha strategy prioritizing z-scores and dynamic position sizing"
+  },
+  {
+    "objectID": "about.html#skills-interests",
+    "href": "about.html#skills-interests",
+    "title": "About Me",
+    "section": "Skills & Interests",
+    "text": "Skills & Interests\n\nTechnical Skills\n\nProgramming: Python, R, C++, JavaScript, TypeScript,\nData Analysis: Pandas, NumPy\nVisualization: Matplotlib\nMachine Learning: Scikit-learn, Pytorch\n\n\n\nAreas of Interest\n\nQuantitative Finance: Risk Managment, Algorthmic trading, Derivitives pricing\nStatistical Modeling: Stochastic processes, Time anaylsis, Monte Carlo methods"
+  },
+  {
+    "objectID": "about.html#goals",
+    "href": "about.html#goals",
+    "title": "About Me",
+    "section": "Goals",
+    "text": "Goals\n\nCurrently I am working to get my Bachlors then plan on getting my Maseters\nLong-term career goal is to break into the quantitative finance"
+  },
+  {
+    "objectID": "about.html#contact",
+    "href": "about.html#contact",
+    "title": "About Me",
+    "section": "Contact",
+    "text": "Contact\n\nEmail: jacobemitchell14@gmail.com\nGitHub: [https://github.com/mitchja23]\nLinkedIn: https://www.linkedin.com/in/jacob-mitchell-82a57030b/\n\n\nThis portfolio showcases my learning progress and projects completed during my data science studies."
+  }
+]
