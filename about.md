@@ -4,44 +4,39 @@ title: "About Me"
 
 ## Background
 
-Write a brief introduction about yourself here. Include:
+- From South Carolina, currentyl based in Utah
+- Love being outside hiking, camping, etc
 
-- Your academic background
-- Your interest in data science
-- Your career goals
-- Any relevant experience or projects
+
 
 ## Education
 
-- **[Your Degree]** - [University Name], [Year]
-- **Relevant Coursework**: Statistics, Data Analysis, Programming, etc.
+- **Data Science** - [ Brigham Young University], [2026]
+- **Relevant Coursework**: Statistical Modeling, Data Structures and Algorthims, Computer Systems, Computational Linear Algebra.
 
 ## Skills & Interests
 
 ### Technical Skills
-- **Programming**: Python
+- **Programming**: Python, R, C++, JavaScript, TypeScript, 
 - **Data Analysis**: Pandas, NumPy
-- **Visualization**: Matplotlib, Seaborn
-- **Machine Learning**: Scikit-learn
-- **Tools**: Jupyter Notebooks, Git/GitHub
+- **Visualization**: Matplotlib
+- **Machine Learning**: Scikit-learn, Pytorch
 
 ### Areas of Interest
-- [Your specific interests, e.g., environmental data, healthcare analytics, finance, etc.]
-- [Other areas you're curious about]
+- **Quantitative Finance**: Risk Managment, Algorthmic trading, Derivitives pricing 
+- **Statistical Modeling**: Stochastic processes, Time anaylsis, Monte Carlo methods 
 
 ## Goals
 
-Describe what you hope to achieve through your data science journey:
+- Currently I am working to get my Bachlors then plan on getting my Maseters 
+- Long-term career goal is to break into the quantitative finance
 
-- Short-term learning objectives
-- Long-term career aspirations
-- Types of problems you want to solve
 
 ## Contact
 
-- **Email**: your.email@example.com
-- **GitHub**: [github.com/your-username](https://github.com/your-username)
-- **LinkedIn**: [linkedin.com/in/your-profile](https://linkedin.com/in/your-profile)
+- **Email**: jacobemitchell14@gmail.com
+- **GitHub**: [https://github.com/mitchja23]
+- **LinkedIn**: [https://www.linkedin.com/in/jacob-mitchell-82a57030b/](https://linkedin.com/in/your-profile)
 
 ---
 
