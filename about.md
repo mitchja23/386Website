@@ -2,7 +2,7 @@
 title: "About Me"
 ---
 
-## Background
+## About me
 
 - From South Carolina, currentyl based in Utah
 - Love being outside hiking, camping, etc
@@ -13,6 +13,11 @@ title: "About Me"
 
 - **Data Science** - [ Brigham Young University], [2026]
 - **Relevant Coursework**: Statistical Modeling, Data Structures and Algorthims, Computer Systems, Computational Linear Algebra.
+
+## Experience & Projects
+- **BYU RLL**: Reaserch assistant at the BYU Reasearch linking lab.
+- **Stochastic Vote Share Simulation**: Created Monte Carlo model using binomial process to estimate projected vote percentage based on political party
+- **Algorithmic Trading System**:  Developed mean-reversion alpha strategy prioritizing z-scores and dynamic position sizing
 
 ## Skills & Interests
 
