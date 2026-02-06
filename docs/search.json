@@ -46,7 +46,7 @@
     "href": "about.html#education",
     "title": "About Me",
     "section": "Education",
-    "text": "Education\n\nData Science - [ Brigham Young University], [2026]\nRelevant Coursework: Statistical Modeling, Data Structures and Algorthims, Computer Systems, Computational Linear Algebra."
+    "text": "Education\n\nData Science - Brigham Young University, 2026\nRelevant Coursework: Statistical Modeling, Data Structures and Algorthims, Computer Systems, Computational Linear Algebra."
   },
   {
     "objectID": "about.html#experience-projects",
@@ -74,6 +74,6 @@
     "href": "about.html#contact",
     "title": "About Me",
     "section": "Contact",
-    "text": "Contact\n\nEmail: jacobemitchell14@gmail.com\nGitHub: [https://github.com/mitchja23]\nLinkedIn: https://www.linkedin.com/in/jacob-mitchell-82a57030b/\n\n\nThis portfolio showcases my learning progress and projects completed during my data science studies."
+    "text": "Contact\n\nEmail: jacobemitchell14@gmail.com\nGitHub: https://github.com/mitchja23\nLinkedIn: https://www.linkedin.com/in/jacob-mitchell-82a57030b/\n\n\nThis portfolio showcases my learning progress and projects completed during my data science studies."
   }
 ]

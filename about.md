@@ -4,14 +4,18 @@ title: "About Me"
 
 ## About me
 
-- From South Carolina, currentyl based in Utah
+::::: columns
+::: {.column width="35%"}
+![](image.jpg)
+:::
+::: {.column width="65%"}
+- From South Carolina, currently based in Utah
 - Love being outside hiking, camping, etc
-
-
-
+:::
+:::::
 ## Education
 
-- **Data Science** - [ Brigham Young University], [2026]
+- **Data Science** -  Brigham Young University, 2026
 - **Relevant Coursework**: Statistical Modeling, Data Structures and Algorthims, Computer Systems, Computational Linear Algebra.
 
 ## Experience & Projects
@@ -40,8 +44,8 @@ title: "About Me"
 ## Contact
 
 - **Email**: jacobemitchell14@gmail.com
-- **GitHub**: [https://github.com/mitchja23]
-- **LinkedIn**: [https://www.linkedin.com/in/jacob-mitchell-82a57030b/](https://linkedin.com/in/your-profile)
+- **GitHub**: [https://github.com/mitchja23](https://github.com/mitchja23)
+- **LinkedIn**: [https://www.linkedin.com/in/jacob-mitchell-82a57030b/](https://www.linkedin.com/in/jacob-mitchell-82a57030b/)
 
 ---
 
