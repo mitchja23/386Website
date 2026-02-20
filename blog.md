@@ -40,7 +40,7 @@ class YahooFinanceSource(DataSource):
         return self._df_to_candle_collection(df, '1d')
 
 ```
-After all the data is collected, the creation of the Volatility matrix is the next step of the process.
+
 ---
 
 ## Volatility Gradient Matrix
