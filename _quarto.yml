@@ -13,6 +13,8 @@ website:
         href: index.md
       - text: "About Me"
         href: about.md
+      - text: "Blog"
+        href: blog.md
       - text: "Projects"
         menu:
           - text: "All Projects"

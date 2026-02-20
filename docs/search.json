@@ -1,5 +1,35 @@
 [
   {
+    "objectID": "projects/index.html",
+    "href": "projects/index.html",
+    "title": "Projects Overview",
+    "section": "",
+    "text": "Description: Pick a dataset and explore it to discover insights and answer questions.\n\n\n\nDescription: Find an interesting data source, collect the data, and prepare it for analysis.\n\n\n\nDescription: A comprehensive project that shows off my data science skills.",
+    "crumbs": [
+      "Projects Overview"
+    ]
+  },
+  {
+    "objectID": "projects/index.html#all-projects",
+    "href": "projects/index.html#all-projects",
+    "title": "Projects Overview",
+    "section": "",
+    "text": "Description: Pick a dataset and explore it to discover insights and answer questions.\n\n\n\nDescription: Find an interesting data source, collect the data, and prepare it for analysis.\n\n\n\nDescription: A comprehensive project that shows off my data science skills.",
+    "crumbs": [
+      "Projects Overview"
+    ]
+  },
+  {
+    "objectID": "projects/eda.html",
+    "href": "projects/eda.html",
+    "title": "EDA Project",
+    "section": "",
+    "text": "This is coming down the pipeline. Check again later.",
+    "crumbs": [
+      "EDA Project"
+    ]
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Welcome to My Data Science Portfolio",
@@ -32,14 +62,14 @@
     "href": "about.html",
     "title": "About Me",
     "section": "",
-    "text": "From South Carolina, currentyl based in Utah\nLove being outside hiking, camping, etc"
+    "text": "From South Carolina, currently based in Utah\nLove being outside hiking, camping, etc"
   },
   {
     "objectID": "about.html#about-me",
     "href": "about.html#about-me",
     "title": "About Me",
     "section": "",
-    "text": "From South Carolina, currentyl based in Utah\nLove being outside hiking, camping, etc"
+    "text": "From South Carolina, currently based in Utah\nLove being outside hiking, camping, etc"
   },
   {
     "objectID": "about.html#education",
@@ -75,5 +105,95 @@
     "title": "About Me",
     "section": "Contact",
     "text": "Contact\n\nEmail: jacobemitchell14@gmail.com\nGitHub: https://github.com/mitchja23\nLinkedIn: https://www.linkedin.com/in/jacob-mitchell-82a57030b/\n\n\nThis portfolio showcases my learning progress and projects completed during my data science studies."
+  },
+  {
+    "objectID": "blog.html",
+    "href": "blog.html",
+    "title": "",
+    "section": "",
+    "text": "Code"
+  },
+  {
+    "objectID": "blog.html#getting-market-data",
+    "href": "blog.html#getting-market-data",
+    "title": "",
+    "section": "Getting Market Data",
+    "text": "Getting Market Data\nFirst the S&P 500 ticker list is scraped from Wikipedia\ndef getTickers() -&gt; List[str]:\n    url = 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'\n    tables = pd.read_html(url, attrs={'id': 'constituents'})\n    tickers = tables[0]['Symbol'].tolist()\n    return [t.replace('.', '-') for t in tickers]  \nThen Yahoo Finance is used to pull the historic data for each of those given tickers\nclass YahooFinanceSource(DataSource):\n    def fetchDaily(self, symbol: str, period: str = '2y') -&gt; CandleCollection):\n        path = self.cache_dir / f\"{symbol}_1d_{period}.csv\"\n\n        if self.cache and path.exists():\n            hours = (datetime.now().timestamp() - path.stat().st_mtime) / 3600\n            if hours &lt; 24:\n                df = pd.read_csv(path, index_col='timestamp', parse_dates=True)\n                return self._df_to_candle_collection(df, '1d')\n\n        ticker = yf.Ticker(self._normalize_symbol(symbol))\n        df = ticker.history(period=period, interval='1d', auto_adjust=True)\n        df = self._normalize_df(df)\n        df.to_csv(path)\n        return self._df_to_candle_collection(df, '1d')"
+  },
+  {
+    "objectID": "blog.html#after-all-the-data-is-collected-the-creation-of-the-volatility-matrix-is-the-next-step-of-the-process.",
+    "href": "blog.html#after-all-the-data-is-collected-the-creation-of-the-volatility-matrix-is-the-next-step-of-the-process.",
+    "title": "",
+    "section": "After all the data is collected, the creation of the Volatility matrix is the next step of the process.",
+    "text": "After all the data is collected, the creation of the Volatility matrix is the next step of the process."
+  },
+  {
+    "objectID": "blog.html#volatility-gradient-matrix",
+    "href": "blog.html#volatility-gradient-matrix",
+    "title": "",
+    "section": "Volatility Gradient Matrix",
+    "text": "Volatility Gradient Matrix\nThe unit of measurement is a candle gradient:\nclass Candle:\n    timestamp: datetime\n    open: float\n    high: float\n    low: float\n    close: float\n    volume: float\n    timeframe: str = '1min'\n\n    def gradient(self) -&gt; float:\n        return safe_divide(self.high - self.low, self.close)\nA Gradient Vector collects these candles and normalizes them so gradients across timeframes are comparable. Then a Gradient Matrix stacks one vector per timeframe into a 2D array creating an overlay:\nclass GradientMatrix:\n\n    def buildMatrix(self) -&gt; Tuple[np.ndarray, List[datetime]]:\n        gradvector = self.vectors[self.alignment]\n        rows, cols = len(gradvector), len(self.timeframes)\n        matrix = np.zeros((rows, cols))\n\n        for index, timeframe in enumerate(self.timeframes):\n            vector = self.vectors[timeframe]\n            if timeframe == self.alignment:\n                matrix[:, index] = vector.normalized  \n            else:\n                matrix[:, index] = self._map_to_base_rows(\n                    vector, gradvector.candles.get_timestamps(), timeframe\n                )\n        return matrix, gradvector.candles.get_timestamps()\nThe heatmap below shows what the matrix looks like across 5 trading days. The heatmap is broken down into 5 different time frames; as well as, one overall consensus that is the weighted average broken back down into minutes. The colors mimic a traffic light such that red is low volatility to green being high volatility\n\n\n\nMulti-timeframe gradient matrix heatmap"
+  },
+  {
+    "objectID": "blog.html#signal-generation",
+    "href": "blog.html#signal-generation",
+    "title": "",
+    "section": "Signal Generation",
+    "text": "Signal Generation\nBefore any computations, six basic features are constructed purely from the gradient matrix.\n\n\n\n\n\n\n\nComponent\nWhat it measures\n\n\n\n\nvolatility_divergence\nShort volatility vs long baseline\n\n\ntimeframe_consensus\nTimeframes agreeing on direction\n\n\nregime\nBased on recent vs historical volume mean\n\n\nmean reversion z\nZ-score of the current gradient vs its rolling distribution\n\n\nmomentum\nWeighted sum of the direction of change of the volatility gradient across timeframes\n\n\nacceleration\nRate of change of the volatility gradient\n\n\n\ndef generateSignal(self) -&gt; Dict:\n    voldivergence   = self.signals['volatility_divergence'].calculate(self.matrix)\n    consensus = self.signals['timeframe_consensus'].calculate(self.matrix)\n    regime = self.signals['regime'].calculate(self.matrix)\n    zscore = self.signals['mean_reversion'].calculate(self.matrix)\n    momentum  = self.signals['momentum'].calculate(self.matrix)\n    acceleration = self.signals['acceleration'].calculate(self.matrix)\n\n    if voldivergence &gt; self.expansion and acceleration &gt; 0:\n        direction = 'LONG'\n    elif voldivergence &lt; self.contraction and acceleration &lt; 0:\n        direction = 'SHORT'\n    else:\n        direction = 'NEUTRAL'\n\n    factors = []\n    factors.append(0.3 if consensus &gt; 0.7 else 0.15 if consensus &gt; 0.5 else 0.0)\n    factors.append(0.3 if regime == 'EXPANDING' else 0.15 if regime == 'STABLE' else 0.0)\n    factors.append(0.2 if acceleration &gt; 0.01 else 0.1 if acceleration &gt; 0 else 0.0)\n    factors.append(0.2 if abs(zscore) &lt; 1.0 else 0.1 if abs(zscore) &lt; 2.0 else 0.0)\n    confidence = sum(factors)\n\n    signal = (confidence &gt;= self.minConfidence and direction != 'NEUTRAL')\n    ...\nThe minimum confidence threshold means at least three of the four factors must apply before the stock is considered for further computations. This helps keep false positive rates extremely low while still making accurate predictions.\nBelow is a graph that strictly makes its predictions based on these factors.\n\n\n\n\n\n\nNote\n\n\n\nIn practice, there are far more computations after this step before decisions are made; however, I chose to make the mathematics behind it private.\n\n\n\n\n\nSignal component breakdown for three stocks"
+  },
+  {
+    "objectID": "blog.html#screening-results-and-further-confirmations",
+    "href": "blog.html#screening-results-and-further-confirmations",
+    "title": "",
+    "section": "Screening Results and Further Confirmations",
+    "text": "Screening Results and Further Confirmations\nAfter the first set of potential predictions are made, each ticker is evaluated with an in sample and out of sample split: the first 70% of each ticker’s history is used for calibration, and the last 30% is held out to see if the signal holds. During this phase a composite score is calculated to further rank the potential tickers.\ndef compositeScore(metrics: Dict) -&gt; float:\n    sharpe = max(0.0, metrics['sharpe'])\n    pf = min(metrics['profit_factor'] / 2.0, 1.0)  \n    wr = max(0.0, metrics['win_rate'])\n    calmar = max(0.0, min(metrics['calmar'], 10.0)) / 10.0\n\n    return 0.4 * sharpe + 0.3 * pf + 0.2 * wr + 0.1 * calmar"
+  },
+  {
+    "objectID": "blog.html#final-results",
+    "href": "blog.html#final-results",
+    "title": "",
+    "section": "Final results",
+    "text": "Final results\n symbol      sector  score  sharpe  profit_factor  win_rate  num_trades  oos_sharpe\n   NVDA  Technology  0.712   2.341          2.140    58.3%          47       1.891\n   META  Technology  0.681   2.108          1.980    55.1%          52       1.752\n   MSFT  Technology  0.654   1.934          1.870    54.7%          49       1.604\n    LLY  Healthcare  0.641   1.882          2.010    57.2%          44       1.521\n   AVGO  Technology  0.623   1.801          1.920    53.9%          51       1.488\n    NOW  Technology  0.611   1.774          1.790    52.8%          46       1.391\n    ..."
+  },
+  {
+    "objectID": "blog.html#monte-carlo-simulation",
+    "href": "blog.html#monte-carlo-simulation",
+    "title": "",
+    "section": "Monte Carlo Simulation",
+    "text": "Monte Carlo Simulation\nIt is important to consider that the out of sample run gives only one possible outcome of trades. Price movement has lots of noise and it is hard to tell what may be survivorship bias. Monte Carlo simulations don’t fix that problem, however they help determine the range of possible outcomes that could have happened with random samples\nSince hypothetical winning streaks and losing streaks may be a statistical phenomenon, a block bootstrap is used over a simple resampling. In addition the whole process is vectorized to complete 10000 paths in a 50 day trading window.\nclass MonteCarloSimulator:\n\n    def blockBootstrap(self, pnls: np.ndarray, trades: int) -&gt; np.ndarray:\n        blocksPer = math.ceil(trades / self.blockSize)\n        maxStart = trades - self.blockSize\n        start = np.random.randint(0, maxStart + 1,\n                                         size=(self.simulations, blocksPer))\n        offsets = np.arange(self.blockSize)\n        indices = start[:, :, np.newaxis] + offsets[np.newaxis, np.newaxis, :]\n\n        return pnls[indices].reshape(self.simulations, -1)[:, :trades]\n\n    def run(self) -&gt; MonteCarloResult:\n        pnls = np.array([t.pnl for t in self.backtest.trades\n                         if t.pnl is not None and t.status == 'CLOSED'])\n\n        sampled = self.blockBootstrap(pnls, len(pnls))\n        equity = np.empty((self.simulations, len(pnls) + 1))\n        equity[:, 0] = self.initial\n        equity[:, 1:] = self.initial + np.cumsum(sampled, axis=1)\n\n\n        maxRunning = np.maximum.accumulate(equity, axis=1)\n        maxDrawdowns = (maxRunning - equity).max(axis=1)\n\n        finalPnls = equity[:, -1] - self.initial\n        var  = float(np.percentile(finalPnls, 5))\n        cvar = float(np.mean(finalPnls[finalPnls &lt;= var]))\n        successProbability = float(np.mean(finalPnls &gt; 0))\n        ..."
+  },
+  {
+    "objectID": "blog.html#reading-the-results",
+    "href": "blog.html#reading-the-results",
+    "title": "",
+    "section": "Reading the Results",
+    "text": "Reading the Results\nThe complete Monte Carlo chart contains 3 sections:\nSection 1 — Equity curve fan Shaded bands represent the 10–90th and 25–75th percentile equity paths across all 1,000 simulations. The solid line is the median. A tight fan means the strategy is robust to ordering; a wide fan means luck is a large factor.\nSection 2 — P&L distribution A histogram of ending P&L across all simulations:\n\nVaR 95%: The level of loss you would expect in the worst 1 in 20 runs\nCVaR 95%: The expected loss given you’re already in the worst possible scenario\nSuccess rate: fraction of paths that ended in profit.\n\nSection 3 — Max drawdown distribution The max drawdown distribution shows the realistic worst case scenario of possible trades in any given simulation.\n\n\n\nMonte Carlo fan chart — equity curves, P&L distribution, max drawdown"
+  },
+  {
+    "objectID": "blog.html#overall-outcome-and-the-future",
+    "href": "blog.html#overall-outcome-and-the-future",
+    "title": "",
+    "section": "Overall outcome and the future",
+    "text": "Overall outcome and the future\nWith all the data up until this point the top 3 tickers and corresponding signals are output, determined by the three-step process: initial screening, in sample and out of sample testing, and Monte Carlo evaluation. At this moment no trades are executed as the strategy is still being adjusted. Furthermore, this system produces so much information that gets cut out since I am unable to track more than 3 tickers live. The long-term goal is to use a framework such as PyTorch to create a model that will be able to process more than the top 3 to continue to make better, more accurate signal calls."
+  },
+  {
+    "objectID": "projects/data-acquisition.html",
+    "href": "projects/data-acquisition.html",
+    "title": "Data Acquisition Project",
+    "section": "",
+    "text": "This is coming down the pipeline. Check again later.",
+    "crumbs": [
+      "Data Acquisition Project"
+    ]
+  },
+  {
+    "objectID": "projects/final-project.html",
+    "href": "projects/final-project.html",
+    "title": "Final Project",
+    "section": "",
+    "text": "This is coming down the pipeline. Check again later.",
+    "crumbs": [
+      "Final Project"
+    ]
   }
 ]
