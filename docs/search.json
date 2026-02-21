@@ -121,13 +121,6 @@
     "text": "Getting Market Data\nFirst the S&P 500 ticker list is scraped from Wikipedia\ndef getTickers() -&gt; List[str]:\n    url = 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'\n    tables = pd.read_html(url, attrs={'id': 'constituents'})\n    tickers = tables[0]['Symbol'].tolist()\n    return [t.replace('.', '-') for t in tickers]  \nThen Yahoo Finance is used to pull the historic data for each of those given tickers\nclass YahooFinanceSource(DataSource):\n    def fetchDaily(self, symbol: str, period: str = '2y') -&gt; CandleCollection):\n        path = self.cache_dir / f\"{symbol}_1d_{period}.csv\"\n\n        if self.cache and path.exists():\n            hours = (datetime.now().timestamp() - path.stat().st_mtime) / 3600\n            if hours &lt; 24:\n                df = pd.read_csv(path, index_col='timestamp', parse_dates=True)\n                return self._df_to_candle_collection(df, '1d')\n\n        ticker = yf.Ticker(self._normalize_symbol(symbol))\n        df = ticker.history(period=period, interval='1d', auto_adjust=True)\n        df = self._normalize_df(df)\n        df.to_csv(path)\n        return self._df_to_candle_collection(df, '1d')"
   },
   {
-    "objectID": "blog.html#after-all-the-data-is-collected-the-creation-of-the-volatility-matrix-is-the-next-step-of-the-process.",
-    "href": "blog.html#after-all-the-data-is-collected-the-creation-of-the-volatility-matrix-is-the-next-step-of-the-process.",
-    "title": "",
-    "section": "After all the data is collected, the creation of the Volatility matrix is the next step of the process.",
-    "text": "After all the data is collected, the creation of the Volatility matrix is the next step of the process."
-  },
-  {
     "objectID": "blog.html#volatility-gradient-matrix",
     "href": "blog.html#volatility-gradient-matrix",
     "title": "",
