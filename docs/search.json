@@ -172,11 +172,91 @@
   {
     "objectID": "projects/data-acquisition.html",
     "href": "projects/data-acquisition.html",
-    "title": "Data Acquisition Project",
+    "title": "Building an Overwatch Hero Dataset",
     "section": "",
-    "text": "This is coming down the pipeline. Check again later.",
+    "text": "During Covid quarantine my friends and I were forced to find a new way to hangout since we were locked inside. As a resault we ending up playing a lot of the hero shooter Overwatch. Ever since then we have contiuned to play and have gotten pretty good and are ranked fairly high. When we play we all have our set roles we play. For example our 2 dps are Gatlin and I. In these roles we tend to play the same heros for the most part. However with the new season that has recently season has come a couple new heros have been added so the scope of the games changed. Many players follow the “Meta” when it comes to play style and hero picks. The meta is swayed based on what characters are seen as over powered or extremly useful in certain situations.",
     "crumbs": [
-      "Data Acquisition Project"
+      "Building an Overwatch Hero Dataset"
+    ]
+  },
+  {
+    "objectID": "projects/data-acquisition.html#why-overwatch-data",
+    "href": "projects/data-acquisition.html#why-overwatch-data",
+    "title": "Building an Overwatch Hero Dataset",
+    "section": "",
+    "text": "During Covid quarantine my friends and I were forced to find a new way to hangout since we were locked inside. As a resault we ending up playing a lot of the hero shooter Overwatch. Ever since then we have contiuned to play and have gotten pretty good and are ranked fairly high. When we play we all have our set roles we play. For example our 2 dps are Gatlin and I. In these roles we tend to play the same heros for the most part. However with the new season that has recently season has come a couple new heros have been added so the scope of the games changed. Many players follow the “Meta” when it comes to play style and hero picks. The meta is swayed based on what characters are seen as over powered or extremly useful in certain situations.",
+    "crumbs": [
+      "Building an Overwatch Hero Dataset"
+    ]
+  },
+  {
+    "objectID": "projects/data-acquisition.html#how-does-hero-win-rate-determine-their-pick-rate",
+    "href": "projects/data-acquisition.html#how-does-hero-win-rate-determine-their-pick-rate",
+    "title": "Building an Overwatch Hero Dataset",
+    "section": "How does Hero win rate determine their pick rate?",
+    "text": "How does Hero win rate determine their pick rate?\nIn lower ranks ther is an clear wider spread in what heros are chosen. There is no strict play style compared to high ranks. Watching higher rank game play we see teams such as “dive comps” become popular since they are extremly good for applying pressure to the opposing team. The purpose of this analysis is to see if there is any trend in hero pick rate and there given win rate and wether we can predict the best possible teamns.",
+    "crumbs": [
+      "Building an Overwatch Hero Dataset"
+    ]
+  },
+  {
+    "objectID": "projects/data-acquisition.html#is-it-ethical-and-allowable",
+    "href": "projects/data-acquisition.html#is-it-ethical-and-allowable",
+    "title": "Building an Overwatch Hero Dataset",
+    "section": "Is It Ethical and Allowable?",
+    "text": "Is It Ethical and Allowable?\nBefore doing any data acquisition it is important to check the rules of any given api.\nOverFast API is an open-source REST API that wraps Blizzard’s official data and exposes it in a clean JSON format.\nThis Api is a free and publicly documented however even with a permissive API, I followed the following practices:\n\ntime.sleep(1) between every request\nRequests are batched by rank so total API hits are limited",
+    "crumbs": [
+      "Building an Overwatch Hero Dataset"
+    ]
+  },
+  {
+    "objectID": "projects/data-acquisition.html#how-the-data-was-collected",
+    "href": "projects/data-acquisition.html#how-the-data-was-collected",
+    "title": "Building an Overwatch Hero Dataset",
+    "section": "How the Data Was Collected",
+    "text": "How the Data Was Collected\nThe OverFast API has two endpoints I needed:\n\n/heroes — returns the full hero roster with roles\n/heroes/stats — returns pick rate and win rate for all heroes within the requested rank\n\nI built the dataset in two stages. I started by called the /heroes endpoint once to get the full roster and built a lookup from hero to role. Then I looped over the seven competitive ranks and for each tier called /heroes/stats with platform=pc, gamemode=competitive, and region=americas. Each stats response gives every hero’s pick rate and win rate for that rank. I combined those with the role lookup, normalized names and capitalization, and appended rows into a single list. After each request I used time.sleep(1) to avoid overloading the API. Lastly I turned the list of rows into a pandas DataFrame and saved it as CSV.\nimport requests\nimport pandas as pd\nimport time\n\n#get every hero's role from the /heroes endpoint\nheroes = requests.get(\"https://overfast-api.tekrop.fr/heroes\")\nheroesList = heroes.json()\n\nrole = {}\nfor hero in heroesList:\n    role[hero[\"key\"]] = hero[\"role\"].capitalize()\n\n# The competitive rank tiers \ntiers = [\"bronze\", \"silver\", \"gold\", \"platinum\", \"diamond\", \"master\", \"grandmaster\"]\n\nrows = []\n\n# fetch all hero stats in one request\nfor tier in tiers:\n\n    response = requests.get(\n        \"https://overfast-api.tekrop.fr/heroes/stats\",\n        params={\n            \"platform\": \"pc\",\n            \"gamemode\": \"competitive\",\n            \"region\": \"americas\",\n            \"competitive_division\": tier,\n        },\n    )\n\n    data = response.json()\n\n    for entry in data:\n        hero_key = entry[\"hero\"]\n        rows.append({\n            \"hero\": hero_key.replace(\"-\", \" \").title(),  \n            \"role\": role.get(hero_key, \"Unknown\"),\n            \"rank_tier\": tier.capitalize(),\n            \"pick_rate\": entry[\"pickrate\"],\n            \"win_rate\": entry[\"winrate\"],    \n        })\n\n    time.sleep(1)  \n\n# save to CSV\ndf = pd.DataFrame(rows)\ndf.to_csv(\"overwatch_hero_stats.csv\", index=False)\nEach tier returns all 50 heroes in one request thus the entire collection takes about 7 seconds and produces all 350 rows.",
+    "crumbs": [
+      "Building an Overwatch Hero Dataset"
+    ]
+  },
+  {
+    "objectID": "projects/data-acquisition.html#dataset-shape-overview",
+    "href": "projects/data-acquisition.html#dataset-shape-overview",
+    "title": "Building an Overwatch Hero Dataset",
+    "section": "Dataset Shape Overview",
+    "text": "Dataset Shape Overview\nShape: (350, 5)\n\nColumns:\n  hero         object\n  role         object\n  rank_tier    object\n  pick_rate    float64\n  win_rate     float64\n\n\nData Dictionary\n\n\n\n\n\n\n\n\nColumn\nType\nDescription\n\n\n\n\nhero\nstring\nHero name\n\n\nrole\nstring\nTank, DPS, or Support\n\n\nrank_tier\nstring\nBronze, Silver, Gold, Platinum, Diamond, Master, Grandmaster\n\n\npick_rate\nfloat\nPercentage of matches where the hero was chosen\n\n\nwin_rate\nfloat\nPercentage of matches won",
+    "crumbs": [
+      "Building an Overwatch Hero Dataset"
+    ]
+  },
+  {
+    "objectID": "projects/data-acquisition.html#cleaning-and-transformations",
+    "href": "projects/data-acquisition.html#cleaning-and-transformations",
+    "title": "Building an Overwatch Hero Dataset",
+    "section": "Cleaning and Transformations",
+    "text": "Cleaning and Transformations\nWhile some of the JSON was already clean I had to preform the given transformations:\n\nHero key -&gt; display name — The API returns names like \"wrecking-ball\" however to normlize these id conver it to\"Wrecking Ball\" using .replace(\"-\", \" \").title().\nJoining Two APIs — Since role data comes from /heroes and stats come from /heroes/stats I was forced to join them into one dataset.\nRole and Rank capitalization — The API returns lowercase strings however some came in capitalized so to make sure they all matched I capalized them all.",
+    "crumbs": [
+      "Building an Overwatch Hero Dataset"
+    ]
+  },
+  {
+    "objectID": "projects/data-acquisition.html#data-quality-considerations",
+    "href": "projects/data-acquisition.html#data-quality-considerations",
+    "title": "Building an Overwatch Hero Dataset",
+    "section": "Data Quality Considerations",
+    "text": "Data Quality Considerations\nNo missing values — Luckily the API is well maintained and all the Heros have sufficent data so there were NaN placeholders to clear\nSingle snapshot — This dataset is not a live updating set. Therefore any predcitons made of this will not hold in different competive seasons as Heros are balanced and tweaked.\nRegion scope — Stats are pulled for the Americas region only. Pick and win rates can differ meaningfully between regions.\nRepresentation bias — Since Grandmaster has far fewer placers than lower ranks averages may carry more variance.",
+    "crumbs": [
+      "Building an Overwatch Hero Dataset"
+    ]
+  },
+  {
+    "objectID": "projects/data-acquisition.html#links-and-resources",
+    "href": "projects/data-acquisition.html#links-and-resources",
+    "title": "Building an Overwatch Hero Dataset",
+    "section": "Links and Resources",
+    "text": "Links and Resources\n\nRequests API docs: Requests\nOverwatch: Overwatch\nOverFast API docs: Overfast\nGitHub repo (code + dataset): overwatch-stats",
+    "crumbs": [
+      "Building an Overwatch Hero Dataset"
     ]
   },
   {

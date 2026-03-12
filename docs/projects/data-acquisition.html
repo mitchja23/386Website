@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Your Name">
-<meta name="dcterms.date" content="2025-01-01">
+<meta name="author" content="Jacob Mitchell">
+<meta name="dcterms.date" content="2026-03-10">
 
-<title>Data Acquisition Project – Your Name - Data Science Portfolio</title>
+<title>Building an Overwatch Hero Dataset – Your Name - Data Science Portfolio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -188,7 +188,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../projects/data-acquisition.html">Data Acquisition Project</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../projects/data-acquisition.html">Building an Overwatch Hero Dataset</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -219,7 +219,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../projects/data-acquisition.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Data Acquisition Project</span></a>
+ <span class="menu-text">Building an Overwatch Hero Dataset</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -233,15 +233,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#why-overwatch-data" id="toc-why-overwatch-data" class="nav-link active" data-scroll-target="#why-overwatch-data">Why Overwatch Data?</a></li>
+  <li><a href="#how-does-hero-win-rate-determine-their-pick-rate" id="toc-how-does-hero-win-rate-determine-their-pick-rate" class="nav-link" data-scroll-target="#how-does-hero-win-rate-determine-their-pick-rate">How does Hero win rate determine their pick rate?</a></li>
+  <li><a href="#is-it-ethical-and-allowable" id="toc-is-it-ethical-and-allowable" class="nav-link" data-scroll-target="#is-it-ethical-and-allowable">Is It Ethical and Allowable?</a></li>
+  <li><a href="#how-the-data-was-collected" id="toc-how-the-data-was-collected" class="nav-link" data-scroll-target="#how-the-data-was-collected">How the Data Was Collected</a></li>
+  <li><a href="#dataset-shape-overview" id="toc-dataset-shape-overview" class="nav-link" data-scroll-target="#dataset-shape-overview">Dataset Shape Overview</a>
+  <ul class="collapse">
+  <li><a href="#data-dictionary" id="toc-data-dictionary" class="nav-link" data-scroll-target="#data-dictionary">Data Dictionary</a></li>
+  </ul></li>
+  <li><a href="#cleaning-and-transformations" id="toc-cleaning-and-transformations" class="nav-link" data-scroll-target="#cleaning-and-transformations">Cleaning and Transformations</a></li>
+  <li><a href="#data-quality-considerations" id="toc-data-quality-considerations" class="nav-link" data-scroll-target="#data-quality-considerations">Data Quality Considerations</a></li>
+  <li><a href="#links-and-resources" id="toc-links-and-resources" class="nav-link" data-scroll-target="#links-and-resources">Links and Resources</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Data Acquisition Project</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Building an Overwatch Hero Dataset</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -251,14 +267,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Your Name </p>
+             <p>Jacob Mitchell </p>
           </div>
   </div>
     
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 1, 2025</p>
+      <p class="date">March 10, 2026</p>
     </div>
   </div>
   
@@ -270,11 +286,173 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This is coming down the pipeline. Check again later.</p>
+<section id="why-overwatch-data" class="level2">
+<h2 class="anchored" data-anchor-id="why-overwatch-data">Why Overwatch Data?</h2>
+<p>During Covid quarantine my friends and I were forced to find a new way to hangout since we were locked inside. As a resault we ending up playing a lot of the hero shooter Overwatch. Ever since then we have contiuned to play and have gotten pretty good and are ranked fairly high. When we play we all have our set roles we play. For example our 2 dps are Gatlin and I. In these roles we tend to play the same heros for the most part. However with the new season that has recently season has come a couple new heros have been added so the scope of the games changed. Many players follow the “Meta” when it comes to play style and hero picks. The meta is swayed based on what characters are seen as over powered or extremly useful in certain situations.</p>
+<hr>
+</section>
+<section id="how-does-hero-win-rate-determine-their-pick-rate" class="level2">
+<h2 class="anchored" data-anchor-id="how-does-hero-win-rate-determine-their-pick-rate">How does Hero win rate determine their pick rate?</h2>
+<p>In lower ranks ther is an clear wider spread in what heros are chosen. There is no strict play style compared to high ranks. Watching higher rank game play we see teams such as “dive comps” become popular since they are extremly good for applying pressure to the opposing team. The purpose of this analysis is to see if there is any trend in hero pick rate and there given win rate and wether we can predict the best possible teamns.</p>
+<hr>
+</section>
+<section id="is-it-ethical-and-allowable" class="level2">
+<h2 class="anchored" data-anchor-id="is-it-ethical-and-allowable">Is It Ethical and Allowable?</h2>
+<p>Before doing any data acquisition it is important to check the rules of any given api.</p>
+<p><strong><a href="https://overfast-api.tekrop.fr">OverFast API</a></strong> is an open-source REST API that wraps Blizzard’s official data and exposes it in a clean JSON format.</p>
+<p>This Api is a free and publicly documented however even with a permissive API, I followed the following practices:</p>
+<ul>
+<li><code>time.sleep(1)</code> between every request</li>
+<li>Requests are batched by rank so total API hits are limited</li>
+</ul>
+<hr>
+</section>
+<section id="how-the-data-was-collected" class="level2">
+<h2 class="anchored" data-anchor-id="how-the-data-was-collected">How the Data Was Collected</h2>
+<p>The OverFast API has two endpoints I needed:</p>
+<ul>
+<li><strong><code>/heroes</code></strong> — returns the full hero roster with roles</li>
+<li><strong><code>/heroes/stats</code></strong> — returns pick rate and win rate for all heroes within the requested rank</li>
+</ul>
+<p>I built the dataset in two stages. I started by called the <strong><code>/heroes</code></strong> endpoint once to get the full roster and built a lookup from hero to role. Then I looped over the seven competitive ranks and for each tier called <strong><code>/heroes/stats</code></strong> with <code>platform=pc</code>, <code>gamemode=competitive</code>, and <code>region=americas</code>. Each stats response gives every hero’s pick rate and win rate for that rank. I combined those with the role lookup, normalized names and capitalization, and appended rows into a single list. After each request I used <code>time.sleep(1)</code> to avoid overloading the API. Lastly I turned the list of rows into a pandas DataFrame and saved it as CSV.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#get every hero's role from the /heroes endpoint</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>heroes <span class="op">=</span> requests.get(<span class="st">"https://overfast-api.tekrop.fr/heroes"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>heroesList <span class="op">=</span> heroes.json()</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>role <span class="op">=</span> {}</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> hero <span class="kw">in</span> heroesList:</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    role[hero[<span class="st">"key"</span>]] <span class="op">=</span> hero[<span class="st">"role"</span>].capitalize()</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># The competitive rank tiers </span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>tiers <span class="op">=</span> [<span class="st">"bronze"</span>, <span class="st">"silver"</span>, <span class="st">"gold"</span>, <span class="st">"platinum"</span>, <span class="st">"diamond"</span>, <span class="st">"master"</span>, <span class="st">"grandmaster"</span>]</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> []</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># fetch all hero stats in one request</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> tier <span class="kw">in</span> tiers:</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> requests.get(</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        <span class="st">"https://overfast-api.tekrop.fr/heroes/stats"</span>,</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        params<span class="op">=</span>{</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>            <span class="st">"platform"</span>: <span class="st">"pc"</span>,</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>            <span class="st">"gamemode"</span>: <span class="st">"competitive"</span>,</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>            <span class="st">"region"</span>: <span class="st">"americas"</span>,</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>            <span class="st">"competitive_division"</span>: tier,</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> response.json()</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> entry <span class="kw">in</span> data:</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>        hero_key <span class="op">=</span> entry[<span class="st">"hero"</span>]</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>        rows.append({</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>            <span class="st">"hero"</span>: hero_key.replace(<span class="st">"-"</span>, <span class="st">" "</span>).title(),  </span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>            <span class="st">"role"</span>: role.get(hero_key, <span class="st">"Unknown"</span>),</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>            <span class="st">"rank_tier"</span>: tier.capitalize(),</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>            <span class="st">"pick_rate"</span>: entry[<span class="st">"pickrate"</span>],</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>            <span class="st">"win_rate"</span>: entry[<span class="st">"winrate"</span>],    </span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="dv">1</span>)  </span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="co"># save to CSV</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(rows)</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>df.to_csv(<span class="st">"overwatch_hero_stats.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Each tier returns all 50 heroes in one request thus the entire collection takes about 7 seconds and produces all 350 rows.</p>
+<hr>
+</section>
+<section id="dataset-shape-overview" class="level2">
+<h2 class="anchored" data-anchor-id="dataset-shape-overview">Dataset Shape Overview</h2>
+<pre><code>Shape: (350, 5)
+
+Columns:
+  hero         object
+  role         object
+  rank_tier    object
+  pick_rate    float64
+  win_rate     float64
+</code></pre>
+<section id="data-dictionary" class="level3">
+<h3 class="anchored" data-anchor-id="data-dictionary">Data Dictionary</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Column</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>hero</code></td>
+<td>string</td>
+<td>Hero name</td>
+</tr>
+<tr class="even">
+<td><code>role</code></td>
+<td>string</td>
+<td>Tank, DPS, or Support</td>
+</tr>
+<tr class="odd">
+<td><code>rank_tier</code></td>
+<td>string</td>
+<td>Bronze, Silver, Gold, Platinum, Diamond, Master, Grandmaster</td>
+</tr>
+<tr class="even">
+<td><code>pick_rate</code></td>
+<td>float</td>
+<td>Percentage of matches where the hero was chosen</td>
+</tr>
+<tr class="odd">
+<td><code>win_rate</code></td>
+<td>float</td>
+<td>Percentage of matches won</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="cleaning-and-transformations" class="level2">
+<h2 class="anchored" data-anchor-id="cleaning-and-transformations">Cleaning and Transformations</h2>
+<p>While some of the JSON was already clean I had to preform the given transformations:</p>
+<ul>
+<li><strong>Hero key -&gt; display name</strong> — The API returns names like <code>"wrecking-ball"</code> however to normlize these id conver it to<code>"Wrecking Ball"</code> using <code>.replace("-", " ").title()</code>.</li>
+<li><strong>Joining Two APIs</strong> — Since role data comes from <code>/heroes</code> and stats come from <code>/heroes/stats</code> I was forced to join them into one dataset.</li>
+<li><strong>Role and Rank capitalization</strong> — The API returns lowercase strings however some came in capitalized so to make sure they all matched I capalized them all.</li>
+</ul>
+<hr>
+</section>
+<section id="data-quality-considerations" class="level2">
+<h2 class="anchored" data-anchor-id="data-quality-considerations">Data Quality Considerations</h2>
+<p><strong>No missing values</strong> — Luckily the API is well maintained and all the Heros have sufficent data so there were NaN placeholders to clear</p>
+<p><strong>Single snapshot</strong> — This dataset is not a live updating set. Therefore any predcitons made of this will not hold in different competive seasons as Heros are balanced and tweaked.</p>
+<p><strong>Region scope</strong> — Stats are pulled for the Americas region only. Pick and win rates can differ meaningfully between regions.</p>
+<p><strong>Representation bias</strong> — Since Grandmaster has far fewer placers than lower ranks averages may carry more variance.</p>
+<hr>
+</section>
+<section id="links-and-resources" class="level2">
+<h2 class="anchored" data-anchor-id="links-and-resources">Links and Resources</h2>
+<ul>
+<li><strong>Requests API docs</strong>: <a href="https://pypi.org/project/requests/">Requests</a></li>
+<li><strong>Overwatch</strong>: <a href="https://overwatch.blizzard.com/en-us/">Overwatch</a></li>
+<li><strong>OverFast API docs</strong>: <a href="https://overfast-api.tekrop.fr">Overfast</a></li>
+<li><strong>GitHub repo (code + dataset)</strong>: <a href="https://github.com/mitchja23/data-acquisition-">overwatch-stats</a></li>
+</ul>
 
 
 <!-- -->
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -728,17 +906,171 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Data Acquisition Project"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Your Name"</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "2025-01-01"</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>This is coming down the pipeline. Check again later.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Building an Overwatch Hero Dataset"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Jacob Mitchell"</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "2026-03-10"</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## Why Overwatch Data?</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>During Covid quarantine my friends and I were forced to find a new way to hangout since we were locked inside. As a resault we </span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>ending up playing a lot of the hero shooter Overwatch. Ever since then we have contiuned to play and have gotten pretty good and are ranked fairly high.</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>When we play we all have our set roles we play. For example our 2 dps are Gatlin and I. In these roles we tend to play the same heros for the most part.</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>However with the new season that has recently season has come a couple new heros have been added so the scope of the games changed. Many players follow the "Meta" when it comes </span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>to play style and hero picks. The meta is swayed based on what characters are seen as over powered or extremly useful in certain situations.</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## How does Hero win rate determine their pick rate?</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>In lower ranks ther is an clear wider spread in what heros are chosen. There is no strict play style compared to high ranks.</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>Watching higher rank game play we see teams such as "dive comps" become popular since they are extremly good for applying pressure to the opposing team. </span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>The purpose of this analysis is to see if there is any trend in hero pick rate and there given win rate and wether we can predict the best possible teamns.</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="fu">## Is It Ethical and Allowable?</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>Before doing any data acquisition it is important to check the rules of any given api. </span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>**[OverFast API](https://overfast-api.tekrop.fr)** is an open-source REST API that wraps Blizzard's official data and exposes it in a clean JSON format.</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>This Api is a free and publicly documented however even with a permissive API, I followed the following practices:</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`time.sleep(1)`</span> between every request</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Requests are batched by rank so total API hits are limited</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="fu">## How the Data Was Collected</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>The OverFast API has two endpoints I needed:</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`/heroes`** — returns the full hero roster with roles</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`/heroes/stats`** — returns pick rate and win rate for all heroes within the requested rank </span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>I built the dataset in two stages. </span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>I started by called the **`/heroes`** endpoint once to get the full roster and built a lookup from hero to role. </span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>Then I looped over the seven competitive ranks and for each tier called **`/heroes/stats`** with <span class="in">`platform=pc`</span>, <span class="in">`gamemode=competitive`</span>, and <span class="in">`region=americas`</span>. </span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>Each stats response gives every hero’s pick rate and win rate for that rank. </span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>I combined those with the role lookup, normalized names and capitalization, and appended rows into a single list. </span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>After each request I used <span class="in">`time.sleep(1)`</span> to avoid overloading the API. </span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>Lastly I turned the list of rows into a pandas DataFrame and saved it as CSV.</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a><span class="co">#get every hero's role from the /heroes endpoint</span></span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>heroes <span class="op">=</span> requests.get(<span class="st">"https://overfast-api.tekrop.fr/heroes"</span>)</span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>heroesList <span class="op">=</span> heroes.json()</span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>role <span class="op">=</span> {}</span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> hero <span class="kw">in</span> heroesList:</span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>    role[hero[<span class="st">"key"</span>]] <span class="op">=</span> hero[<span class="st">"role"</span>].capitalize()</span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a><span class="co"># The competitive rank tiers </span></span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>tiers <span class="op">=</span> [<span class="st">"bronze"</span>, <span class="st">"silver"</span>, <span class="st">"gold"</span>, <span class="st">"platinum"</span>, <span class="st">"diamond"</span>, <span class="st">"master"</span>, <span class="st">"grandmaster"</span>]</span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> []</span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a><span class="co"># fetch all hero stats in one request</span></span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> tier <span class="kw">in</span> tiers:</span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> requests.get(</span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a>        <span class="st">"https://overfast-api.tekrop.fr/heroes/stats"</span>,</span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a>        params<span class="op">=</span>{</span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a>            <span class="st">"platform"</span>: <span class="st">"pc"</span>,</span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a>            <span class="st">"gamemode"</span>: <span class="st">"competitive"</span>,</span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a>            <span class="st">"region"</span>: <span class="st">"americas"</span>,</span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a>            <span class="st">"competitive_division"</span>: tier,</span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> response.json()</span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> entry <span class="kw">in</span> data:</span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a>        hero_key <span class="op">=</span> entry[<span class="st">"hero"</span>]</span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a>        rows.append({</span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>            <span class="st">"hero"</span>: hero_key.replace(<span class="st">"-"</span>, <span class="st">" "</span>).title(),  </span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a>            <span class="st">"role"</span>: role.get(hero_key, <span class="st">"Unknown"</span>),</span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a>            <span class="st">"rank_tier"</span>: tier.capitalize(),</span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a>            <span class="st">"pick_rate"</span>: entry[<span class="st">"pickrate"</span>],</span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a>            <span class="st">"win_rate"</span>: entry[<span class="st">"winrate"</span>],    </span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="dv">1</span>)  </span>
+<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a><span class="co"># save to CSV</span></span>
+<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(rows)</span>
+<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a>df.to_csv(<span class="st">"overwatch_hero_stats.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a>Each tier returns all 50 heroes in one request thus the entire collection takes about 7 seconds and produces all 350 rows.</span>
+<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a><span class="fu">## Dataset Shape Overview</span></span>
+<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a><span class="in">Shape: (350, 5)</span></span>
+<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a><span class="in">Columns:</span></span>
+<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a><span class="in">  hero         object</span></span>
+<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a><span class="in">  role         object</span></span>
+<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a><span class="in">  rank_tier    object</span></span>
+<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a><span class="in">  pick_rate    float64</span></span>
+<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a><span class="in">  win_rate     float64</span></span>
+<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a><span class="fu">### Data Dictionary</span></span>
+<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Column <span class="pp">|</span> Type <span class="pp">|</span> Description <span class="pp">|</span></span>
+<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
+<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`hero`</span> <span class="pp">|</span> string <span class="pp">|</span> Hero name<span class="pp">|</span></span>
+<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`role`</span> <span class="pp">|</span> string <span class="pp">|</span> Tank, DPS, or Support <span class="pp">|</span></span>
+<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`rank_tier`</span> <span class="pp">|</span> string <span class="pp">|</span>Bronze, Silver, Gold, Platinum, Diamond, Master, Grandmaster <span class="pp">|</span></span>
+<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`pick_rate`</span> <span class="pp">|</span> float <span class="pp">|</span> Percentage of matches where the hero was chosen <span class="pp">|</span></span>
+<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`win_rate`</span> <span class="pp">|</span> float <span class="pp">|</span> Percentage of matches won  <span class="pp">|</span></span>
+<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cleaning and Transformations</span></span>
+<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a>While some of the JSON was already clean I had to preform the given transformations:</span>
+<span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Hero key -&gt; display name** — The API returns names like <span class="in">`"wrecking-ball"`</span> however to normlize these id conver it to<span class="in">`"Wrecking Ball"`</span> using <span class="in">`.replace("-", " ").title()`</span>.</span>
+<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Joining Two APIs** — Since role data comes from <span class="in">`/heroes`</span> and stats come from <span class="in">`/heroes/stats`</span> I was forced to join them into one dataset.</span>
+<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Role and Rank capitalization** — The API returns lowercase strings however some came in capitalized so to make sure they all matched I capalized them all.</span>
+<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Quality Considerations</span></span>
+<span id="cb3-150"><a href="#cb3-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-151"><a href="#cb3-151" aria-hidden="true" tabindex="-1"></a>**No missing values** — Luckily the API is well maintained and all the Heros have sufficent data so there were NaN placeholders to clear </span>
+<span id="cb3-152"><a href="#cb3-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a>**Single snapshot** — This dataset is not a live updating set. Therefore any predcitons made of this will not hold in different competive seasons as Heros are balanced and tweaked.</span>
+<span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a>**Region scope** — Stats are pulled for the Americas region only. Pick and win rates can differ meaningfully between regions.</span>
+<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-157"><a href="#cb3-157" aria-hidden="true" tabindex="-1"></a>**Representation bias** — Since Grandmaster has far fewer placers than lower ranks averages may carry more variance.</span>
+<span id="cb3-158"><a href="#cb3-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-159"><a href="#cb3-159" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb3-160"><a href="#cb3-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-161"><a href="#cb3-161" aria-hidden="true" tabindex="-1"></a><span class="fu">## Links and Resources </span></span>
+<span id="cb3-162"><a href="#cb3-162" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Requests API docs**: <span class="co">[</span><span class="ot">Requests</span><span class="co">](https://pypi.org/project/requests/)</span></span>
+<span id="cb3-163"><a href="#cb3-163" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Overwatch**: <span class="co">[</span><span class="ot">Overwatch</span><span class="co">](https://overwatch.blizzard.com/en-us/)</span></span>
+<span id="cb3-164"><a href="#cb3-164" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**OverFast API docs**: <span class="co">[</span><span class="ot">Overfast</span><span class="co">](https://overfast-api.tekrop.fr)</span></span>
+<span id="cb3-165"><a href="#cb3-165" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**GitHub repo (code + dataset)**: <span class="co">[</span><span class="ot">overwatch-stats</span><span class="co">](https://github.com/mitchja23/data-acquisition-)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

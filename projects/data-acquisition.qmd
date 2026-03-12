@@ -1,11 +1,166 @@
 ---
-title: "Data Acquisition Project"
-author: "Your Name"
-date: "2025-01-01"
+title: "Building an Overwatch Hero Dataset"
+author: "Jacob Mitchell"
+date: "2026-03-10"
 format:
   html:
     code-fold: true
     toc: true
 ---
 
-This is coming down the pipeline. Check again later.
+## Why Overwatch Data?
+
+During Covid quarantine my friends and I were forced to find a new way to hangout since we were locked inside. As a resault we 
+ending up playing a lot of the hero shooter Overwatch. Ever since then we have contiuned to play and have gotten pretty good and are ranked fairly high.
+When we play we all have our set roles we play. For example our 2 dps are Gatlin and I. In these roles we tend to play the same heros for the most part.
+However with the new season that has recently season has come a couple new heros have been added so the scope of the games changed. Many players follow the "Meta" when it comes 
+to play style and hero picks. The meta is swayed based on what characters are seen as over powered or extremly useful in certain situations.
+
+
+---
+
+## How does Hero win rate determine their pick rate?
+
+In lower ranks ther is an clear wider spread in what heros are chosen. There is no strict play style compared to high ranks.
+Watching higher rank game play we see teams such as "dive comps" become popular since they are extremly good for applying pressure to the opposing team. 
+The purpose of this analysis is to see if there is any trend in hero pick rate and there given win rate and wether we can predict the best possible teamns.
+
+
+---
+
+## Is It Ethical and Allowable?
+
+Before doing any data acquisition it is important to check the rules of any given api. 
+
+**[OverFast API](https://overfast-api.tekrop.fr)** is an open-source REST API that wraps Blizzard's official data and exposes it in a clean JSON format.
+
+This Api is a free and publicly documented however even with a permissive API, I followed the following practices:
+
+- `time.sleep(1)` between every request
+- Requests are batched by rank so total API hits are limited
+
+---
+
+## How the Data Was Collected
+
+The OverFast API has two endpoints I needed:
+
+- **`/heroes`** — returns the full hero roster with roles
+- **`/heroes/stats`** — returns pick rate and win rate for all heroes within the requested rank 
+
+I built the dataset in two stages. 
+I started by called the **`/heroes`** endpoint once to get the full roster and built a lookup from hero to role. 
+Then I looped over the seven competitive ranks and for each tier called **`/heroes/stats`** with `platform=pc`, `gamemode=competitive`, and `region=americas`. 
+Each stats response gives every hero’s pick rate and win rate for that rank. 
+I combined those with the role lookup, normalized names and capitalization, and appended rows into a single list. 
+After each request I used `time.sleep(1)` to avoid overloading the API. 
+Lastly I turned the list of rows into a pandas DataFrame and saved it as CSV.
+
+```python
+import requests
+import pandas as pd
+import time
+
+#get every hero's role from the /heroes endpoint
+heroes = requests.get("https://overfast-api.tekrop.fr/heroes")
+heroesList = heroes.json()
+
+role = {}
+for hero in heroesList:
+    role[hero["key"]] = hero["role"].capitalize()
+
+# The competitive rank tiers 
+tiers = ["bronze", "silver", "gold", "platinum", "diamond", "master", "grandmaster"]
+
+rows = []
+
+# fetch all hero stats in one request
+for tier in tiers:
+
+    response = requests.get(
+        "https://overfast-api.tekrop.fr/heroes/stats",
+        params={
+            "platform": "pc",
+            "gamemode": "competitive",
+            "region": "americas",
+            "competitive_division": tier,
+        },
+    )
+
+    data = response.json()
+
+    for entry in data:
+        hero_key = entry["hero"]
+        rows.append({
+            "hero": hero_key.replace("-", " ").title(),  
+            "role": role.get(hero_key, "Unknown"),
+            "rank_tier": tier.capitalize(),
+            "pick_rate": entry["pickrate"],
+            "win_rate": entry["winrate"],    
+        })
+
+    time.sleep(1)  
+
+# save to CSV
+df = pd.DataFrame(rows)
+df.to_csv("overwatch_hero_stats.csv", index=False)
+```
+
+Each tier returns all 50 heroes in one request thus the entire collection takes about 7 seconds and produces all 350 rows.
+
+---
+
+## Dataset Shape Overview
+
+```
+Shape: (350, 5)
+
+Columns:
+  hero         object
+  role         object
+  rank_tier    object
+  pick_rate    float64
+  win_rate     float64
+
+```
+
+### Data Dictionary
+
+| Column | Type | Description |
+|---|---|---|
+| `hero` | string | Hero name|
+| `role` | string | Tank, DPS, or Support |
+| `rank_tier` | string |Bronze, Silver, Gold, Platinum, Diamond, Master, Grandmaster |
+| `pick_rate` | float | Percentage of matches where the hero was chosen |
+| `win_rate` | float | Percentage of matches won  |
+
+---
+
+## Cleaning and Transformations
+
+While some of the JSON was already clean I had to preform the given transformations:
+
+- **Hero key -> display name** — The API returns names like `"wrecking-ball"` however to normlize these id conver it to`"Wrecking Ball"` using `.replace("-", " ").title()`.
+- **Joining Two APIs** — Since role data comes from `/heroes` and stats come from `/heroes/stats` I was forced to join them into one dataset.
+- **Role and Rank capitalization** — The API returns lowercase strings however some came in capitalized so to make sure they all matched I capalized them all.
+
+---
+
+## Data Quality Considerations
+
+**No missing values** — Luckily the API is well maintained and all the Heros have sufficent data so there were NaN placeholders to clear 
+
+**Single snapshot** — This dataset is not a live updating set. Therefore any predcitons made of this will not hold in different competive seasons as Heros are balanced and tweaked.
+
+**Region scope** — Stats are pulled for the Americas region only. Pick and win rates can differ meaningfully between regions.
+
+**Representation bias** — Since Grandmaster has far fewer placers than lower ranks averages may carry more variance.
+
+---
+
+## Links and Resources 
+- **Requests API docs**: [Requests](https://pypi.org/project/requests/)
+- **Overwatch**: [Overwatch](https://overwatch.blizzard.com/en-us/)
+- **OverFast API docs**: [Overfast](https://overfast-api.tekrop.fr)
+- **GitHub repo (code + dataset)**: [overwatch-stats](https://github.com/mitchja23/data-acquisition-)
+
