@@ -17,7 +17,7 @@ pip install -e .
 ## `cleaning` module
 
 ```python
-from cleaning import add_season, clean_city_datasets, clean_assult_dataset, clean_slc_datasets, clean_city_column
+from cleaning import add_season, clean_city_datasets, clean_assault_dataset, clean_slc_datasets, clean_city_column
 ```
 
 ---
@@ -63,7 +63,7 @@ print(df.shape)
 
 ---
 
-### `clean_assult_dataset(file)`
+### `clean_assault_dataset(file)`
 
 Cleans the Salt Lake City assault dataset, which uses a different column schema than the standard city datasets.
 
@@ -74,9 +74,9 @@ Cleans the Salt Lake City assault dataset, which uses a different column schema 
 
 **Example:**
 ```python
-from cleaning import clean_assult_dataset
+from cleaning import clean_assault_dataset
 
-df = clean_assult_dataset("data/slc_assault_2012.csv")
+df = clean_assault_dataset("data/slc_assault_2012.csv")
 print(df.columns.tolist())
 ```
 
