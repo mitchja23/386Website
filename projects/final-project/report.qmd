@@ -17,7 +17,7 @@ This question has practical implications for resource allocation by law enforcem
 ### Sources
 
 - **Crime data:** 24 city-level police report datasets downloaded from the [Utah Open Data Portal](https://opendata.utah.gov), covering cities including Salt Lake City, Orem, Logan, Provo, South Jordan, Lehi, Roy, and others (2007–2019).
-- **Population data:** U.S. Census Bureau population estimates accessed via the Census API for Utah places and Cache County.
+- **Population data:** U.S. Census Bureau population estimates accessed via the Census API for Utah places and County.
 
 ### Assembly
 
