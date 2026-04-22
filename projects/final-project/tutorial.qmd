@@ -1,0 +1,148 @@
+---
+title: "Tutorial"
+---
+
+# Tutorial
+
+This tutorial walks through installing the package, reproducing the data pipeline, and using the cleaning functions in your own code.
+
+---
+
+## 1. Clone the Repository
+
+```bash
+git clone https://github.com/mitchja23/386FinalProject.git
+cd 386FinalProject
+```
+
+## 2. Install the Package
+
+```bash
+pip install -e .
+```
+
+This installs the `utah-crime-analysis` package in editable mode along with all dependencies (pandas, numpy, statsmodels, streamlit, plotly, etc.).
+
+To verify the installation:
+
+```python
+from cleaning import add_season
+print("Installation successful!")
+```
+
+---
+
+## 3. Explore the Pre-Built Analysis
+
+The `Analysis/` directory contains a Jupyter notebook with the full statistical analysis:
+
+```bash
+jupyter notebook Analysis/incident_rate_model.ipynb
+```
+
+The notebook includes:
+- Box plots of incident rates by season
+- Two-way ANOVA (original and log-transformed models)
+- Residual diagnostics (Q-Q plots, histograms)
+- Model comparison via AIC/BIC
+
+---
+
+## 4. Run the Streamlit Dashboard
+
+The interactive Streamlit app works immediately with the included `Analysis/crime_summary.csv`:
+
+```bash
+streamlit run streamlit_app.py
+```
+
+The app opens in your browser with three tabs:
+- **Trends** — Incident rates over time by city
+- **Season Comparison** — Box plots and summary statistics by season
+- **ANOVA Analysis** — Full ANOVA table with significance highlighting
+
+---
+
+## 5. Reproduce the Full Data Pipeline
+
+If you want to regenerate the data from scratch, follow these steps.
+
+### 5a. Download Raw Crime Data
+
+```bash
+python scrapping/utahOpenportal.py
+```
+
+This downloads 24 CSV files from the Utah Open Data Portal into `opendata_utah_csvs/`.
+
+### 5b. Download Population Data
+
+The Census scraper requires a free API key from [api.census.gov/data/key_signup.html](https://api.census.gov/data/key_signup.html).
+
+```bash
+export CENSUS_API_KEY=your_key_here
+python scrapping/scrape_population.py
+```
+
+This writes `cleaned_data/city_populations.csv`.
+
+### 5c. Clean Crime Data
+
+```bash
+python cleaning/cleaning_data.py
+```
+
+Outputs `cleaned_data/master_crime_data.csv` (~100k+ rows).
+
+### 5d. Build Analysis-Ready Dataset
+
+```bash
+python cleaning/clean_analysis_data.py
+```
+
+Merges crime counts with population, computes incident rates per 100k, and outputs `cleaned_data/crime_summary.csv`.
+
+### 5e. Run the Web Visualization
+
+```bash
+python run.py
+```
+
+Builds `visualizations/data/crime_data.json` (if not already present) and opens the Leaflet heatmap in your browser.
+
+---
+
+## 6. Use Cleaning Functions Directly
+
+```python
+from cleaning import add_season, clean_city_column
+import pandas as pd
+
+# Add season column from a date string column
+df = pd.DataFrame({
+    "date": ["03/15/2013", "08/22/2015", "11/01/2018", "01/05/2019"]
+})
+df = add_season(df)
+print(df)
+#          date  season
+# 0  03/15/2013  Spring
+# 1  08/22/2015  Summer
+# 2  11/01/2018    Fall
+# 3  01/05/2019  Winter
+
+# Standardize city names
+df2 = pd.DataFrame({"city": ["slc", "west valley", "n. Salt Lake", "interstate"]})
+df2 = clean_city_column(df2)
+print(df2["city"].tolist())
+# ['Salt Lake City', 'West Valley City', 'North Salt Lake', 'County/Interstate/Other']
+```
+
+---
+
+## 7. Run Tests
+
+```bash
+pytest tests/
+```
+
+All tests operate on in-memory DataFrames and require no data files.

@@ -1,0 +1,37 @@
+---
+title: "Utah Crime Analysis"
+---
+
+# Utah Crime Incident Rate Analysis (2007–2019)
+
+This project analyzes crime incident rates across Utah municipalities to answer the question:
+**Do crime rates vary by season, city, or year?**
+
+Using data from the Utah Open Data Portal and U.S. Census Bureau population estimates, we assembled a custom dataset covering ~20 cities from 2007 to 2019. A two-way ANOVA on log-transformed incident rates (per 100,000 residents) revealed that **city and year are significant predictors** of crime, while **season is not**.
+
+---
+
+## Quick Links
+
+| Resource | Description |
+|---|---|
+| [API Reference](api.qmd) | Function documentation for all cleaning and visualization modules |
+| [Tutorial](tutorial.qmd) | Step-by-step guide to installing and using the package |
+| [Technical Report](report.qmd) | Methodology, findings, and analysis details |
+| [Streamlit App](https://mitchja23-386finalproject.streamlit.app) | Interactive dashboard |
+| [GitHub Repository](https://github.com/mitchja23/386FinalProject) | Source code |
+
+---
+
+## Key Finding
+
+> Crime incident rates in Utah vary significantly by **city** and **year** (p < 0.001), but **season has no statistically significant effect** on crime rates.
+
+This suggests that targeted, city-level policies are more relevant than seasonal interventions.
+
+---
+
+## Data Sources
+
+- [Utah Open Data Portal](https://opendata.utah.gov) — 24 city-level police report datasets
+- [U.S. Census Bureau](https://www.census.gov/data/developers/data-sets.html) — Population estimates via Census API

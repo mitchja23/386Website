@@ -1,0 +1,173 @@
+---
+title: "API Reference"
+---
+
+# API Reference
+
+This page documents the public functions available after installing the `utah-crime-analysis` package.
+
+## Installation
+
+```bash
+pip install -e .
+```
+
+---
+
+## `cleaning` module
+
+```python
+from cleaning import add_season, clean_city_datasets, clean_assult_dataset, clean_slc_datasets, clean_city_column
+```
+
+---
+
+### `add_season(df, date_col='date')`
+
+Adds a `season` column to a DataFrame based on a date column.
+
+**Parameters:**
+- `df` (*pd.DataFrame*) — Input DataFrame containing a date column.
+- `date_col` (*str*, default `'date'`) — Name of the column containing date values.
+
+**Returns:** `pd.DataFrame` — Copy of the input with an added `season` column (`"Spring"`, `"Summer"`, `"Fall"`, or `"Winter"`). Rows with unparseable dates get `pd.NA`.
+
+**Example:**
+```python
+from cleaning import add_season
+import pandas as pd
+
+df = pd.DataFrame({"date": ["03/15/2015", "07/04/2015", "10/31/2015", "12/25/2015"]})
+df = add_season(df)
+print(df["season"].tolist())
+```
+
+---
+
+### `clean_city_datasets(file_list)`
+
+Cleans and standardizes multiple city-level crime datasets into a single DataFrame.
+
+**Parameters:**
+- `file_list` (*list of str*) — File paths to city crime CSV files.
+
+**Returns:** `pd.DataFrame` — Concatenated, cleaned DataFrame with columns: `case_number`, `city`, `incident_type_primary`, `parent_incident_type`, `date`, `time_of_day`, `day_of_week`, `latitude`, `longitude`, `address`, `zip`, `season`.
+
+**Example:**
+```python
+from cleaning import clean_city_datasets
+
+df = clean_city_datasets(["data/orem_crime.csv", "data/logan_crime.csv"])
+print(df.shape)
+```
+
+---
+
+### `clean_assult_dataset(file)`
+
+Cleans the Salt Lake City assault dataset, which uses a different column schema than the standard city datasets.
+
+**Parameters:**
+- `file` (*str*) — File path to the assault CSV.
+
+**Returns:** `pd.DataFrame` — Cleaned DataFrame using the standard schema.
+
+**Example:**
+```python
+from cleaning import clean_assult_dataset
+
+df = clean_assult_dataset("data/slc_assault_2012.csv")
+print(df.columns.tolist())
+```
+
+---
+
+### `clean_slc_datasets(file_list)`
+
+Cleans and standardizes Salt Lake City police report datasets (2013–2014 format).
+
+**Parameters:**
+- `file_list` (*list of str*) — File paths to SLC police CSV files.
+
+**Returns:** `pd.DataFrame` — Concatenated, cleaned DataFrame using the standard schema.
+
+**Example:**
+```python
+from cleaning import clean_slc_datasets
+
+df = clean_slc_datasets(["data/slc_police_cases_2013.csv", "data/slc_police_cases_2014.csv"])
+print(df["city"].unique())  # ['Salt Lake City']
+```
+
+---
+
+### `clean_city_column(df, city_col='city')`
+
+Standardizes city names: expands directional abbreviations, resolves known aliases, groups non-city entries, and applies title case.
+
+**Parameters:**
+- `df` (*pd.DataFrame*) — Input DataFrame.
+- `city_col` (*str*, default `'city'`) — Name of the city column.
+
+**Returns:** `pd.DataFrame` — Copy with a cleaned city column.
+
+**Example:**
+```python
+from cleaning import clean_city_column
+import pandas as pd
+
+df = pd.DataFrame({"city": ["slc", "west valley", "n. Salt Lake", "interstate"]})
+df = clean_city_column(df)
+print(df["city"].tolist())
+# ['Salt Lake City', 'West Valley City', 'North Salt Lake', 'County/Interstate/Other']
+```
+
+---
+
+## `visualizations` module
+
+```python
+from visualizations import DataLoader, Exporter
+```
+
+---
+
+### `DataLoader`
+
+Loads and preprocesses `cleaned_data/master_crime_data.csv` for visualization.
+
+#### `DataLoader.load() -> pd.DataFrame`
+
+Reads the master crime CSV, filters to valid Utah coordinates and years 2007–2019, assigns crime categories, and returns a clean DataFrame.
+
+**Returns:** `pd.DataFrame` — Columns include `latitude`, `longitude`, `year`, `category`, `city`, `parent_incident_type`.
+
+**Example:**
+```python
+from visualizations import DataLoader
+
+df = DataLoader().load()
+print(df["category"].value_counts())
+```
+
+---
+
+### `Exporter`
+
+Exports crime data to JSON for the JavaScript heatmap visualization.
+
+#### `Exporter(df)`
+
+**Parameters:**
+- `df` (*pd.DataFrame*) — Output of `DataLoader.load()`.
+
+#### `Exporter.run()`
+
+Writes `visualizations/data/crime_data.json` containing heatmap coordinates, bar chart data, and statistics for all years and crime categories.
+
+**Example:**
+```python
+from visualizations import DataLoader, Exporter
+
+Exporter(DataLoader().load()).run()
+```

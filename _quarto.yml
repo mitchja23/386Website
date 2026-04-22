@@ -24,8 +24,15 @@ website:
             href: projects/eda.qmd
           - text: "Data Acquisition"
             href: projects/data-acquisition.qmd
-          - text: "Final Project"
-            href: projects/final-project.qmd
+          - text: "---"
+          - text: "Final Project — Overview"
+            href: projects/final-project/index.qmd
+          - text: "Final Project — Technical Report"
+            href: projects/final-project/report.qmd
+          - text: "Final Project — Tutorial"
+            href: projects/final-project/tutorial.qmd
+          - text: "Final Project — API Reference"
+            href: projects/final-project/api.qmd
     right:
       - icon: github
         href: https://github.com/your-username
@@ -38,7 +45,10 @@ website:
         - projects/index.md
         - projects/eda.qmd
         - projects/data-acquisition.qmd
-        - projects/final-project.qmd
+        - projects/final-project/index.qmd
+        - projects/final-project/report.qmd
+        - projects/final-project/tutorial.qmd
+        - projects/final-project/api.qmd
 
 format:
   html:

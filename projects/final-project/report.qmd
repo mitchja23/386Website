@@ -1,0 +1,114 @@
+---
+title: "Technical Report"
+---
+
+# Technical Report: Utah Crime Incident Rate Analysis
+
+## Motivating Question
+
+**Do crime incident rates in Utah vary by season, city, or year?**
+
+This question has practical implications for resource allocation by law enforcement agencies. If crime rates spike in particular seasons, targeted seasonal interventions could be justified. If rates differ primarily by city or year, the focus should shift to city-level policy and long-term trend analysis.
+
+---
+
+## Dataset
+
+### Sources
+
+- **Crime data:** 24 city-level police report datasets downloaded from the [Utah Open Data Portal](https://opendata.utah.gov), covering cities including Salt Lake City, Orem, Logan, Provo, South Jordan, Lehi, Roy, and others (2007–2019).
+- **Population data:** U.S. Census Bureau population estimates accessed via the Census API for Utah places and Cache County.
+
+### Assembly
+
+The raw data was assembled in a fully reproducible manner using Python scripts:
+
+1. `scrapping/utahOpenportal.py` — programmatically downloads all 24 crime CSVs from the Utah Open Data Portal.
+2. `scrapping/scrape_population.py` — queries the Census API for annual population estimates.
+
+The datasets use inconsistent schemas, column names, date formats, and city name spellings — requiring substantial cleaning before analysis.
+
+---
+
+## Methodology
+
+### Step 1 — Data Cleaning
+
+Five cleaning functions in the `cleaning` package standardize all datasets into a common schema:
+
+| Function | Purpose |
+|---|---|
+| `clean_city_datasets()` | Standardizes the 21 standard-format city CSVs |
+| `clean_assult_dataset()` | Handles the non-standard SLC assault format |
+| `clean_slc_datasets()` | Handles the SLC police agency format |
+| `add_season()` | Derives season (Spring/Summer/Fall/Winter) from date |
+| `clean_city_column()` | Resolves city name aliases and normalizes formatting |
+
+All datasets are concatenated into `master_crime_data.csv`.
+
+### Step 2 — Incident Rate Calculation
+
+Crime counts are aggregated by **city × season × year**, then merged with the Census population data. The incident rate per 100,000 residents is calculated as:
+
+```
+incident_rate = (crime_count / population) × 100,000
+```
+
+Only city-year pairs with matching population data are retained, yielding the `crime_summary.csv` dataset used in the analysis.
+
+### Step 3 — Statistical Analysis
+
+A two-way ANOVA was used to test whether city, year, and season are significant predictors of the incident rate:
+
+**Model (log-transformed):**
+```
+log(1 + incident_rate) ~ C(season) + C(city) + C(year)
+```
+
+Log transformation was applied because the raw incident rates were right-skewed. The log model produced lower AIC and BIC values and better-behaved residuals (verified via Q-Q plots).
+
+---
+
+## Key Findings
+
+| Predictor | Significant? | p-value |
+|---|---|---|
+| City | Yes | < 0.001 |
+| Year | Yes | < 0.001 |
+| Season | No | > 0.05 |
+
+- **City** is the strongest predictor: crime rates differ substantially between municipalities. Cities with larger populations or higher transient populations (e.g., Salt Lake City) show higher raw incident rates, but after normalizing by population, patterns vary.
+- **Year** is significant: incident rates show temporal trends, consistent with broader national crime trends.
+- **Season has no significant effect**: despite common assumptions about seasonal crime variation, the data do not support a seasonal pattern in Utah across these years.
+
+---
+
+## Workflow Summary (Reproducibility)
+
+```
+1. python scrapping/utahOpenportal.py          # download raw CSVs
+2. python scrapping/scrape_population.py        # download Census population data
+3. python cleaning/cleaning_data.py             # → cleaned_data/master_crime_data.csv
+4. python cleaning/clean_analysis_data.py       # → cleaned_data/crime_summary.csv
+5. jupyter notebook Analysis/incident_rate_model.ipynb  # ANOVA analysis
+6. python run.py                                # interactive heatmap visualization
+7. streamlit run streamlit_app.py              # Streamlit dashboard
+```
+
+---
+
+## Limitations
+
+- **Missing geographic coverage:** Not all Utah cities have open data available. The analysis covers approximately 20 municipalities, which may not be representative of the full state.
+- **Inconsistent reporting periods:** Some datasets span fewer years than others, leading to unbalanced panel data.
+- **Crime category harmonization:** Incident type labels varied significantly across datasets; normalization introduces some classification uncertainty.
+- **Census population interpolation:** Annual population estimates are used; actual populations may vary within years.
+
+---
+
+## Tools Used
+
+- **Python** (pandas, numpy, statsmodels, matplotlib, seaborn, plotly, streamlit)
+- **JavaScript** (Leaflet.js) for interactive web heatmap
+- **U.S. Census API** for population data
+- **Utah Open Data Portal** for crime incident data
