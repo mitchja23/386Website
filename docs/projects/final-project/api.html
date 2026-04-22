@@ -274,7 +274,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#add_seasondf-date_coldate" id="toc-add_seasondf-date_coldate" class="nav-link" data-scroll-target="#add_seasondf-date_coldate"><code>add_season(df, date_col='date')</code></a></li>
   <li><a href="#clean_city_datasetsfile_list" id="toc-clean_city_datasetsfile_list" class="nav-link" data-scroll-target="#clean_city_datasetsfile_list"><code>clean_city_datasets(file_list)</code></a></li>
-  <li><a href="#clean_assult_datasetfile" id="toc-clean_assult_datasetfile" class="nav-link" data-scroll-target="#clean_assult_datasetfile"><code>clean_assult_dataset(file)</code></a></li>
+  <li><a href="#clean_assault_datasetfile" id="toc-clean_assault_datasetfile" class="nav-link" data-scroll-target="#clean_assault_datasetfile"><code>clean_assault_dataset(file)</code></a></li>
   <li><a href="#clean_slc_datasetsfile_list" id="toc-clean_slc_datasetsfile_list" class="nav-link" data-scroll-target="#clean_slc_datasetsfile_list"><code>clean_slc_datasets(file_list)</code></a></li>
   <li><a href="#clean_city_columndf-city_colcity" id="toc-clean_city_columndf-city_colcity" class="nav-link" data-scroll-target="#clean_city_columndf-city_colcity"><code>clean_city_column(df, city_col='city')</code></a></li>
   </ul></li>
@@ -319,7 +319,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="cleaning-module" class="level2">
 <h2 class="anchored" data-anchor-id="cleaning-module"><code>cleaning</code> module</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> cleaning <span class="im">import</span> add_season, clean_city_datasets, clean_assult_dataset, clean_slc_datasets, clean_city_column</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> cleaning <span class="im">import</span> add_season, clean_city_datasets, clean_assault_dataset, clean_slc_datasets, clean_city_column</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 <section id="add_seasondf-date_coldate" class="level3">
 <h3 class="anchored" data-anchor-id="add_seasondf-date_coldate"><code>add_season(df, date_col='date')</code></h3>
@@ -347,15 +347,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.shape)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
-<section id="clean_assult_datasetfile" class="level3">
-<h3 class="anchored" data-anchor-id="clean_assult_datasetfile"><code>clean_assult_dataset(file)</code></h3>
+<section id="clean_assault_datasetfile" class="level3">
+<h3 class="anchored" data-anchor-id="clean_assault_datasetfile"><code>clean_assault_dataset(file)</code></h3>
 <p>Cleans the Salt Lake City assault dataset, which uses a different column schema than the standard city datasets.</p>
 <p><strong>Parameters:</strong> - <code>file</code> (<em>str</em>) — File path to the assault CSV.</p>
 <p><strong>Returns:</strong> <code>pd.DataFrame</code> — Cleaned DataFrame using the standard schema.</p>
 <p><strong>Example:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> cleaning <span class="im">import</span> clean_assult_dataset</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> cleaning <span class="im">import</span> clean_assault_dataset</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> clean_assult_dataset(<span class="st">"data/slc_assault_2012.csv"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> clean_assault_dataset(<span class="st">"data/slc_assault_2012.csv"</span>)</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.columns.tolist())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
@@ -900,7 +900,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="fu">## `cleaning` module</span></span>
 <span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> cleaning <span class="im">import</span> add_season, clean_city_datasets, clean_assult_dataset, clean_slc_datasets, clean_city_column</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> cleaning <span class="im">import</span> add_season, clean_city_datasets, clean_assault_dataset, clean_slc_datasets, clean_city_column</span>
 <span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>---</span>
@@ -946,7 +946,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb11-65"><a href="#cb11-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a><span class="fu">### `clean_assult_dataset(file)`</span></span>
+<span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a><span class="fu">### `clean_assault_dataset(file)`</span></span>
 <span id="cb11-67"><a href="#cb11-67" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-68"><a href="#cb11-68" aria-hidden="true" tabindex="-1"></a>Cleans the Salt Lake City assault dataset, which uses a different column schema than the standard city datasets.</span>
 <span id="cb11-69"><a href="#cb11-69" aria-hidden="true" tabindex="-1"></a></span>
@@ -957,9 +957,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-74"><a href="#cb11-74" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-75"><a href="#cb11-75" aria-hidden="true" tabindex="-1"></a>**Example:**</span>
 <span id="cb11-76"><a href="#cb11-76" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
-<span id="cb11-77"><a href="#cb11-77" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> cleaning <span class="im">import</span> clean_assult_dataset</span>
+<span id="cb11-77"><a href="#cb11-77" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> cleaning <span class="im">import</span> clean_assault_dataset</span>
 <span id="cb11-78"><a href="#cb11-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-79"><a href="#cb11-79" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> clean_assult_dataset(<span class="st">"data/slc_assault_2012.csv"</span>)</span>
+<span id="cb11-79"><a href="#cb11-79" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> clean_assault_dataset(<span class="st">"data/slc_assault_2012.csv"</span>)</span>
 <span id="cb11-80"><a href="#cb11-80" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.columns.tolist())</span>
 <span id="cb11-81"><a href="#cb11-81" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb11-82"><a href="#cb11-82" aria-hidden="true" tabindex="-1"></a></span>
