@@ -28,6 +28,8 @@ The raw data was assembled in a fully reproducible manner using Python scripts:
 
 The datasets use inconsistent schemas, column names, date formats, and city name spellings — requiring substantial cleaning before analysis.
 
+The final `crime_summary.csv` dataset contains **514 records**, each representing a unique city × season × year combination, with a computed incident rate per 100,000 residents.
+
 ---
 
 ## Methodology
@@ -58,28 +60,90 @@ Only city-year pairs with matching population data are retained, yielding the `c
 
 ### Step 3 — Statistical Analysis
 
-A two-way ANOVA was used to test whether city, year, and season are significant predictors of the incident rate:
+A two-way ANOVA was used to test whether city, year, and season are significant predictors of the incident rate. We fit two models — one on the raw scale and one on a log-transformed scale — and compared them using AIC/BIC and residual diagnostics.
 
-**Model (log-transformed):**
+---
+
+## Exploratory Analysis
+
+Before fitting any model, a box plot of incident rates by season reveals that the distributions are remarkably consistent across all four seasons. Each season exhibits some outliers, but the medians and interquartile ranges are nearly identical. This is an early visual signal that seasonal differences in incident rates are minimal.
+
+---
+
+## Original ANOVA Model
+
+**Model:**
 ```
-log(1 + incident_rate) ~ C(season) + C(city) + C(year)
+incident_rate_per_100k ~ C(season) * C(city) + C(year)
 ```
 
-Log transformation was applied because the raw incident rates were right-skewed. The log model produced lower AIC and BIC values and better-behaved residuals (verified via Q-Q plots).
+| Predictor | Sum Sq | df | F | p-value |
+|---|---|---|---|---|
+| Intercept | 3.83e+07 | 1 | 3.68 | 0.0559 |
+| C(season) | 1.80e+05 | 3 | 0.006 | 0.9994 |
+| C(city) | 7.78e+09 | 17 | 43.85 | 6.49e-83 |
+| C(year) | 6.25e+08 | 9 | 6.66 | 6.04e-09 |
+| C(season):C(city) | 3.65e+08 | 51 | 0.69 | 0.9505 |
+| Residual | 4.52e+09 | 433 | — | — |
+
+The ANOVA model indicates that incident rates per 100,000 vary significantly by city and year, but not by season. City has a very strong effect (p ≈ 6.49e-83), showing large differences in incident rates across locations, and year is also statistically significant (p ≈ 6.04e-09), indicating that incident rates change over time. In contrast, season has no meaningful effect (p ≈ 0.999), suggesting no detectable seasonal variation in incident rates. Additionally, the interaction between season and city is not significant (p ≈ 0.95), meaning that seasonal patterns do not differ across cities.
+
+### Residual Diagnostics (Original Model)
+
+A key issue with the original model is visible in the residuals: they are not well-behaved under the raw scale. The residual distribution is highly influenced by the skewed nature of the data and the wide range of incident rates across cities, which leads to non-ideal assumptions for ANOVA. In particular, the residuals reflect heteroskedasticity (unequal variance across groups) and non-normal structure in the original scale, meaning the model fit is driven heavily by large city effects and does not stabilize variance well without transformation.
+
+---
+
+## Log-Transformed ANOVA Model
+
+To address the residual issues, a log transformation was applied:
+
+**Model:**
+```
+log(1 + incident_rate_per_100k) ~ C(season) * C(city) + C(year)
+```
+
+| Predictor | Sum Sq | df | F | p-value |
+|---|---|---|---|---|
+| Intercept | 36.85 | 1 | 14.77 | 1.40e-04 |
+| C(season) | 11.07 | 3 | 1.48 | 0.2195 |
+| C(city) | 580.24 | 17 | 13.68 | 4.17e-31 |
+| C(year) | 110.93 | 9 | 4.94 | 2.49e-06 |
+| C(season):C(city) | 101.86 | 51 | 0.80 | 0.8355 |
+| Residual | 1080.52 | 433 | — | — |
+
+The log-transformed results confirm the same pattern: incident rates are significantly influenced by both city and year, while season does not have a statistically significant effect. City shows a strong effect (p ≈ 4.17e-31) and year is also significant (p ≈ 2.49e-06). Season remains not significant (p = 0.219), and the season × city interaction is not significant (p = 0.835).
+
+### Residual Diagnostics (Log Model)
+
+The log transformation substantially improves residual behavior. The Q-Q plot shows points that track the 45° reference line much more closely, and the residual histogram approximates a normal distribution more convincingly than the original model. This confirms that the log scale is the appropriate scale for inference.
+
+---
+
+## Model Comparison
+
+| | Original Model | Log Model |
+|---|---|---|
+| AIC | 9,839.03 | **2,002.56** |
+| BIC | 10,182.65 | **2,346.18** |
+
+Both AIC and BIC decrease dramatically after the log transformation — a reduction of roughly 7,800 points — indicating that the log-transformed model provides a much better balance of goodness-of-fit and model simplicity. This aligns with the diagnostic evidence: the original model suffered from non-constant variance and poorly behaved residuals, while the log transformation stabilized variance and improved normality.
+
+Importantly, despite the large improvement in model fit, the **overall conclusions are consistent across both models**: city and year are significant predictors of incident rates, while season and the season × city interaction are not statistically significant.
 
 ---
 
 ## Key Findings
 
-| Predictor | Significant? | p-value |
+| Predictor | Significant? | p-value (log model) |
 |---|---|---|
-| City | Yes | < 0.001 |
-| Year | Yes | < 0.001 |
-| Season | No | > 0.05 |
+| City | Yes | 4.17e-31 |
+| Year | Yes | 2.49e-06 |
+| Season | No | 0.219 |
 
 - **City** is the strongest predictor: crime rates differ substantially between municipalities. Cities with larger populations or higher transient populations (e.g., Salt Lake City) show higher raw incident rates, but after normalizing by population, patterns vary.
 - **Year** is significant: incident rates show temporal trends, consistent with broader national crime trends.
-- **Season has no significant effect**: despite common assumptions about seasonal crime variation, the data do not support a seasonal pattern in Utah across these years.
+- **Season has no significant effect**: despite common assumptions about seasonal crime variation, the data do not support a seasonal pattern in Utah across these years. This finding holds in both the raw and log-transformed models.
 
 ---
 
