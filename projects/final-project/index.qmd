@@ -18,7 +18,7 @@ Using data from the Utah Open Data Portal and U.S. Census Bureau population esti
 | [API Reference](api.qmd) | Function documentation for all cleaning and visualization modules |
 | [Tutorial](tutorial.qmd) | Step-by-step guide to installing and using the package |
 | [Technical Report](report.qmd) | Methodology, findings, and analysis details |
-| [Streamlit App](https://mitchja23-386finalproject.streamlit.app) | Interactive dashboard |
+| [Streamlit App](https://386finalproject.streamlit.app/) | Interactive dashboard |
 | [GitHub Repository](https://github.com/mitchja23/386FinalProject) | Source code |
 
 ---
